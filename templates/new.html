@@ -1,0 +1,18 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% load custom_tags %}
+<!-- Название у нас будет Product -->
+{% block title %}
+New
+{% endblock title %}
+
+{% block content %}
+    <h1>Новости на сегодня</h1>
+    <h3>{% current_time '%b %d %Y' %}</h3>
+    <h1>{{ new }}</h1>
+    <h1>{{ new.title |censor }}</h1>
+    <p>Автор:</> {{ new.author }}</p>
+    <p><strong>{{ new.text |censor }}</p>
+{% endblock content %}
