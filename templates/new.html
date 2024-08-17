@@ -1,0 +1,25 @@
+<!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+New
+{% endblock title %}
+
+{% block content %}
+    <h1>Текущая новость/статья</h1>
+    <hr>
+    {% if new %}
+        <dl>
+            <dt>Заголовок<dt>
+            <dd>{{new.title|censor}}</dd>
+            <dt>Дата публикации<dt>
+            <dd>{{new.date_in|date:'M d Y'}}</dd>
+            <dt>Текст статьи<dt>
+            <dd>{{new.text|censor}}</dd>
+        </dl>
+    {% else %}
+       <h3>Такого поста нет!</h3>
+   {% endif %}
+{% endblock content %}
