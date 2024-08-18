@@ -12,7 +12,7 @@ from datetime import datetime
 class PostList(ListView):
     model = Post
     ordering = 'date_in'
-    template_name = 'news.html'
+    # template_name = 'news.html'
     context_object_name = 'news'
     queryset = Post.objects.order_by('-date_in')
     paginate_by = 2
@@ -34,6 +34,11 @@ class PostList(ListView):
         # Возвращаем из функции отфильтрованный список товаров
         return self.filterset.qs
 
+    def get_template_names(self):
+        if self.request.path=='/news/create':
+            return 'search.html'
+        return 'news.html'
+
 
 class PostDetail(DetailView):
     model = Post
@@ -46,15 +51,12 @@ class PostCreate(CreateView):
     model = Post
     template_name = 'new_create.html'
 
-
-    def form_valid(self,form):
-        post=form.save(commit=False)
+    def form_valid(self, form):
+        post = form.save(commit=False)
         if self.request.path == '/articles/create/':
-            post.post_type = False
-            post.save()
+            post.post_type = 'AR'
+        post.save()
         return super().form_valid(form)
-
-
 
 
 class PostUpdate(UpdateView):
@@ -69,12 +71,10 @@ class PostDelete(DeleteView):
     success_url = reverse_lazy('new_list')
 
 
-
 class PostSearch(ListView):
     model = Post
     ordering = '-date_in'
     template_name = 'new_search.html'
-
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -85,5 +85,3 @@ class PostSearch(ListView):
         context = super().get_context_data(**kwargs)
         context['filterset'] = self.filterset
         return context
-
-

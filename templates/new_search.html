@@ -15,14 +15,14 @@
    </form>
 
    <hr>
-   {% if search %}
+   {% if filterset.qs %}
        <table>
            <tr>
                <td style="font-size: 16px; font-weight: bold;">Заголовок</td>
                <td style="font-size: 16px; font-weight: bold;">Дата публикации</td>
                <td style="font-size: 16px; font-weight: bold;">Превью</td>
            </tr>
-           {% for post in search %}
+           {% for post in filterset.qs %}
            <tr>
                <td>{{post.title|censor}}</td>
                <td>{{post.post_time_in|date:'M d Y'}}</td>
