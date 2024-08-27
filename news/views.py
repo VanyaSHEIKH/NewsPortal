@@ -1,12 +1,9 @@
-from django.contrib.auth.decorators import login_required, permission_required
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import *
 from .filters import PostFilter
 from .forms import PostForm
-from datetime import datetime
+
 
 
 class PostList(ListView):
