@@ -1,17 +1,15 @@
 from django.shortcuts import render, reverse, redirect
 from django.views import View
-from django.core.mail import EmailMultiAlternatives  # импортируем класс для создание объекта письма с html
+from django.core.mail import mail_admins, mail_managers  # импортируем класс для создание объекта письма с html
 from datetime import datetime
-from django.core.mail import send_mail
+
 
 from django.template.loader import render_to_string  # импортируем функцию, которая срендерит наш html в текст
 from .models import Appointment
 
-from django.conf import settings
-
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.core.mail import mail_managers
+
 
 
 @receiver(post_save, sender=Appointment)
@@ -25,7 +23,6 @@ def notify_managers_appointment(sender, instance, created, **kwargs):
         subject=subject,
         message=instance.message,
     )
-
 
 class AppointmentView(View):
     def get(self, request, *args, **kwargs):
@@ -46,15 +43,11 @@ class AppointmentView(View):
                 'appointment': appointment,
             }
         )
-
-        # в конструкторе уже знакомые нам параметры, да? Называются правда немного по-другому, но суть та же.
-        msg = EmailMultiAlternatives(
-            subject=f'{appointment.client_name} {appointment.date.strftime("%Y-%M-%d")}',
-            body=appointment.message,  # это то же, что и message
-            from_email='',
-            to=[''],  # это то же, что и recipients_list
+        mail_admins(
+            subject=f'{appointment.client_name} {appointment.date.strftime("%d %m %Y")}',
+            message=appointment.message,
         )
-        msg.attach_alternative(html_content, "text/html")  # добавляем html
-        msg.send()  # отсылаем
 
         return redirect('appointments:make_appointment')
+
+
