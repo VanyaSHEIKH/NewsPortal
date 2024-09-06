@@ -101,11 +101,9 @@ def subscribe(request, pk):
     user = request.user
     category = Category.objects.get(id=pk)
 
-    # Создаем запись в модели Subscription
     subscription, created = Subscription.objects.get_or_create(user=user, category=category)
 
     if created:
-        # Отправка уведомления пользователю
         send_mail(
             'Подписка на категорию',
             f'Вы успешно подписались на категорию {category.name_category}.',
@@ -124,11 +122,10 @@ def subscribe(request, pk):
     category = Category.objects.get(id=pk)
     category.subscribers.add(user)
 
-    # Отправка email-уведомления
     send_mail(
         'Подписка на категорию',
         f'Вы успешно подписались на категорию: {category.name_category}',
-        settings.DEFAULT_FROM_EMAIL,  # Укажите ваш адрес отправителя
+        settings.DEFAULT_FROM_EMAIL,
         [user.email],
         fail_silently=False,
     )
@@ -142,14 +139,12 @@ def unsubscribe(request, pk):
     user = request.user
     category = Category.objects.get(id=pk)
 
-    # Удаление пользователя из подписчиков
     category.subscribers.remove(user)
 
-    # Отправка email-уведомления об отписке
     send_mail(
         'Отписка от категории',
         f'Вы успешно отписались от категории: {category.name_category}',
-        settings.DEFAULT_FROM_EMAIL,  # Укажите ваш адрес отправителя
+        settings.DEFAULT_FROM_EMAIL,
         [user.email],
         fail_silently=False,
     )
