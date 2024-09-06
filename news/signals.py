@@ -12,7 +12,7 @@ def notify_subscribers(sender, instance, created, **kwargs):
             mail_managers(
                 'Новая статья в вашей категории',
                 f'Новая статья: {instance.title}\n\n{instance.content}',
-                'POCHTA',
+                'fromemail',
                 [subscription.user.email],
 
             )

@@ -1,13 +1,13 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import *
-from .filters import PostFilter,CategoryFilter
+from .filters import PostFilter, CategoryFilter
 from .forms import *
-
+from django.contrib import messages
 
 class PostList(ListView):
     model = Post
@@ -23,15 +23,8 @@ class PostList(ListView):
         return context
 
     def get_queryset(self):
-        # Получаем обычный запрос
         queryset = super().get_queryset()
-        # Используем наш класс фильтрации.
-        # self.request.GET содержит объект QueryDict, который мы рассматривали
-        # в этом юните ранее.
-        # Сохраняем нашу фильтрацию в объекте класса,
-        # чтобы потом добавить в контекст и использовать в шаблоне.
         self.filterset = PostFilter(self.request.GET, queryset)
-        # Возвращаем из функции отфильтрованный список товаров
         return self.filterset.qs
 
     def get_template_names(self):
@@ -58,13 +51,6 @@ class PostCreate(CreateView, PermissionRequiredMixin, LoginRequiredMixin):
             post.post_type = 'AR'
         post.save()
         return super().form_valid(form)
-
-    # def add_post(request):
-    #     # Проверяем есть ли у данного пользователя разрешение для добавления поста
-    #     # Если такого разрешения нет, то выкидываем исключение PermissionDenied
-    #     if not request.user.has_perm('news.add_post'):
-    #         raise PermissionDenied
-    #     # Бизнес-логика для добавления поста
 
 
 class PostUpdate(UpdateView, PermissionRequiredMixin, LoginRequiredMixin):
@@ -97,20 +83,12 @@ class PostSearch(ListView):
         return context
 
 
-
 class CategoryList(ListView):
     model = Category
     ordering = '-date_in'
     template_name = 'categories_list.html'
     context_object_name = 'categories'
     paginate_by = 2
-
-
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['is_not_subscriber'] = self.request.user not in self.category.subscribers.all()
-    #     context['category'] = self.category
-    #     return context
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -130,28 +108,53 @@ class CategoryList(ListView):
         # Возвращаем из функции отфильтрованный список товаров
         return self.filterset.qs
 
+class CategoryDetail(DetailView):
+    model = Category
+    template_name = 'category.html'
+    context_object_name = 'category'
 
+
+# def subscribe(request):
+#     if request.method == 'POST':
+#         form = SubscriptionForm(request.POST)
+#         print(request.POST)
+#         if form.is_valid():
+#             category = get_object_or_404(Category, id=form.cleaned_data['category_id'])
+#             category.subscribers.add(request.user)
+#             return redirect('/')
+#     return redirect('/')
 
 # @login_required
-# def subscribe(request, pk):
-#     user = request.user
-#     category = Category.objects.get(id=pk)
+# def subscribe(request,pk):
+#     user=request.user
+#     category=Category.objects.get(id=pk)
 #     category.subscribers.add(user)
+#     return redirect(f'/news/category/{category.pk}')
 #
-#     message = "Подписка на категорию прошла успешно!"
-#     return render(request, 'subscribe.html', {'category': category, 'message': message})
+# @login_required
+# def unsubscribe(request,pk):
+#     user=request.user
+#     category=Category.objects.get(id=pk)
+#     category.subscribers.remove(user)
+#     return redirect(f'/news/category/{category.pk}')
 
 
-def subscribe(request):
-    if request.method == "POST":
-        form = SubscriptionForm(request.POST)
-        if form.is_valid():
-            subscription = form.save(commit=False)
-            subscription.user = request.user
-            subscription.save()
-            return redirect('/')  # Замените на нужный URL
-    else:
-        form = SubscriptionForm()
+def subscribe(request, category_id):
+    if not request.user.is_authenticated:
+        messages.error(request, 'Вы должны быть аутентифицированы для подписки.')
+        return redirect('/')
 
-    categories = Category.objects.all()
-    return render(request, 'subscribe.html', {'form': form, 'categories': categories})
+    if request.method == 'POST':
+        category = get_object_or_404(Category, id=category_id)
+        subscription, created = Subscription.objects.get_or_create(user=request.user, category=category)
+
+        if created:
+            messages.success(request, f'Вы успешно подписались на категорию "{category.name_category}".')
+        else:
+            messages.info(request, f'Вы уже подписаны на категорию "{category}".')
+
+        return redirect('/news/category')
+
+    # Если метод не POST, перенаправляем или возвращаем ошибку
+    messages.error(request, 'Неправильный метод запроса.')
+    return redirect('/news/category')

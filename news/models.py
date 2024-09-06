@@ -39,6 +39,7 @@ class Category(models.Model):
     name_category = models.CharField(max_length=60, unique=True)
     rating = models.IntegerField(default=0)
     date_in = models.DateTimeField(default=datetime.datetime.now)
+    subscribers=models.ManyToManyField(User,related_name='subscribed_posts', blank=True)
 
     def __str__(self):
         return self.name_category.title()
