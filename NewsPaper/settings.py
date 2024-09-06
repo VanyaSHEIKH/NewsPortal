@@ -49,7 +49,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.yandex',
 
-    'appointment.apps.AppointmentConfig',
+    'appointment',
+
+    'django_apscheduler',
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -146,13 +148,15 @@ STATICFILES_DIRS = [
 ]
 
 LOGIN_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/news/'
+LOGOUT_REDIRECT_URL='/'
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/'
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_FORMS = {'signup': 'sign.models.BasicSignupForm'}
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -164,9 +168,12 @@ EMAIL_USE_SSL = True  # Яндекс использует ssl, подробне�
 
 DEFAULT_FROM_EMAIL = ''
 
-ADMINS = [
+MANAGERS = [
     ('Skavik', ''),
     # список всех админов в формате ('имя', 'их почта')
 ]
 SERVER_EMAIL = ''  # это будет у нас вместо аргумента FROM в массовой рассылке
+
+APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
+APSCHEDULER_RUN_NOW_TIMEOUT = 25
 

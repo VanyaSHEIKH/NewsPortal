@@ -13,5 +13,6 @@ urlpatterns = [
    path('articles/create/', PostCreate.as_view(), name='news_create'),
    path('articles/<int:pk>/edit', PostUpdate.as_view(), name='news_edit'),
    path('articles/<int:pk>/delete', PostDelete.as_view(), name='news_delete'),
+   path('category/', CategoryList.as_view(), name='categories_list'),
 ]
 

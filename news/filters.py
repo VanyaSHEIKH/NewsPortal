@@ -13,3 +13,11 @@ class PostFilter(FilterSet):
             'author':['exact'],
             'title':['icontains'],
        }
+class CategoryFilter(FilterSet):
+    class Meta:
+        model = Category
+        fields = {
+            'name_category': ['exact'],
+            'rating':['exact'],
+        }
+

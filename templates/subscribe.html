@@ -1,0 +1,14 @@
+<!-- subscribe.html -->
+<h1>Подписка на статьи</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Подписаться</button>
+</form>
+
+<h2>Доступные категории</h2>
+<ul>
+    {% for category in categories %}
+        <li>{{ category.name_category }}</li>
+    {% endfor %}
+</ul>

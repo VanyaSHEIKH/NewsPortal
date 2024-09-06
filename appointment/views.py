@@ -43,7 +43,7 @@ class AppointmentView(View):
                 'appointment': appointment,
             }
         )
-        mail_admins(
+        mail_managers(
             subject=f'{appointment.client_name} {appointment.date.strftime("%d %m %Y")}',
             message=appointment.message,
         )

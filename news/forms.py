@@ -1,14 +1,16 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from .models import Post
+from .models import *
+
 
 class PostForm(forms.ModelForm):
     title = forms.CharField(max_length=25)
-    text=forms.CharField(max_length=200)
+    text = forms.CharField(max_length=200)
+
     class Meta:
-        model=Post
-        fields=[
+        model = Post
+        fields = [
             'author',
             'post_type',
             'rating',
@@ -28,3 +30,9 @@ class PostForm(forms.ModelForm):
             )
 
         return cleaned_data
+
+
+class SubscriptionForm(forms.ModelForm):
+    class Meta:
+        model = Subscription
+        fields = ['category']

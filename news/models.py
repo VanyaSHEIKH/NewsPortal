@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+import datetime
 
 
 
@@ -36,6 +37,8 @@ class Author(models.Model):
 
 class Category(models.Model):
     name_category = models.CharField(max_length=60, unique=True)
+    rating = models.IntegerField(default=0)
+    date_in = models.DateTimeField(default=datetime.datetime.now)
 
     def __str__(self):
         return self.name_category.title()
@@ -96,3 +99,14 @@ class Comment(models.Model):
     def dislike(self):
         self.rating -= 1
         self.save()
+
+
+class Subscription(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('user', 'category')
+
+    def __str__(self):
+        return f"{self.user.username} subscribed to {self.category.name}"
