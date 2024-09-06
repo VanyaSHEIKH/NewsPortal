@@ -1,14 +1,15 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import *
+from .models import Subscription
 from .filters import PostFilter, CategoryFilter
 from .forms import *
 from django.contrib import messages
-
+from django.conf import settings
 class PostList(ListView):
     model = Post
     ordering = 'date_in'
@@ -85,76 +86,91 @@ class PostSearch(ListView):
 
 class CategoryList(ListView):
     model = Category
-    ordering = '-date_in'
     template_name = 'categories_list.html'
     context_object_name = 'categories'
-    paginate_by = 2
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['list_in_page'] = self.paginate_by
-        context['filterset'] = self.filterset
-        return context
-
-    def get_queryset(self):
-        # Получаем обычный запрос
-        queryset = super().get_queryset()
-        # Используем наш класс фильтрации.
-        # self.request.GET содержит объект QueryDict, который мы рассматривали
-        # в этом юните ранее.
-        # Сохраняем нашу фильтрацию в объекте класса,
-        # чтобы потом добавить в контекст и использовать в шаблоне.
-        self.filterset = CategoryFilter(self.request.GET, queryset)
-        # Возвращаем из функции отфильтрованный список товаров
-        return self.filterset.qs
 
 class CategoryDetail(DetailView):
     model = Category
     template_name = 'category.html'
     context_object_name = 'category'
 
+#Рассылка уведомления на почту от подписке на категорию!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-# def subscribe(request):
-#     if request.method == 'POST':
-#         form = SubscriptionForm(request.POST)
-#         print(request.POST)
-#         if form.is_valid():
-#             category = get_object_or_404(Category, id=form.cleaned_data['category_id'])
-#             category.subscribers.add(request.user)
-#             return redirect('/')
-#     return redirect('/')
+def subscribe(request, pk):
+    user = request.user
+    category = Category.objects.get(id=pk)
 
-# @login_required
-# def subscribe(request,pk):
-#     user=request.user
-#     category=Category.objects.get(id=pk)
-#     category.subscribers.add(user)
-#     return redirect(f'/news/category/{category.pk}')
+    # Создаем запись в модели Subscription
+    subscription, created = Subscription.objects.get_or_create(user=user, category=category)
+
+    if created:
+        # Отправка уведомления пользователю
+        send_mail(
+            'Подписка на категорию',
+            f'Вы успешно подписались на категорию {category.name_category}.',
+            settings.DEFAULT_FROM_EMAIL,
+            [user.email],
+            fail_silently=False,
+        )
+        messages.success(request, f'Вы успешно подписались на категорию {category.name_category}.')
+    else:
+        messages.warning(request, 'Вы уже подписаны на эту категорию.')
+
+    return redirect('category_detail', pk=pk)
+@login_required
+def subscribe(request, pk):
+    user = request.user
+    category = Category.objects.get(id=pk)
+    category.subscribers.add(user)
+
+    # Отправка email-уведомления
+    send_mail(
+        'Подписка на категорию',
+        f'Вы успешно подписались на категорию: {category.name_category}',
+        settings.DEFAULT_FROM_EMAIL,  # Укажите ваш адрес отправителя
+        [user.email],
+        fail_silently=False,
+    )
+
+    messages.success(request, f'Вы успешно подписались на категорию: {category.name_category}')
+    return redirect(f'/news/category/{category.pk}')
+
+
+@login_required
+def unsubscribe(request, pk):
+    user = request.user
+    category = Category.objects.get(id=pk)
+
+    # Удаление пользователя из подписчиков
+    category.subscribers.remove(user)
+
+    # Отправка email-уведомления об отписке
+    send_mail(
+        'Отписка от категории',
+        f'Вы успешно отписались от категории: {category.name_category}',
+        settings.DEFAULT_FROM_EMAIL,  # Укажите ваш адрес отправителя
+        [user.email],
+        fail_silently=False,
+    )
+
+    messages.success(request, f'Вы успешно отписались от категории: {category.name_category}')
+    return redirect(f'/news/category/{category.pk}')
+
 #
-# @login_required
-# def unsubscribe(request,pk):
-#     user=request.user
-#     category=Category.objects.get(id=pk)
-#     category.subscribers.remove(user)
-#     return redirect(f'/news/category/{category.pk}')
+@login_required
+def send_notification_email(user, Post):
+    subject = f'Новая новость в категории {Post.category.name_category}'
+    message = f'В категории "{Post.category.name_category}" добавлена новая новость: {Post.title}\n\n{Post.text}'
+    recipient_list = [user.email]
 
+    send_mail(subject, message,settings.DEFAULT_FROM_EMAIL, recipient_list)
 
-def subscribe(request, category_id):
-    if not request.user.is_authenticated:
-        messages.error(request, 'Вы должны быть аутентифицированы для подписки.')
-        return redirect('/')
+@login_required
+def add_news_to_category(title, text, category):
+    news = Post.objects.create(title=title, text=text, category=category)
 
-    if request.method == 'POST':
-        category = get_object_or_404(Category, id=category_id)
-        subscription, created = Subscription.objects.get_or_create(user=request.user, category=category)
+    subscribers = Subscription.objects.filter(category=category).select_related('user')
 
-        if created:
-            messages.success(request, f'Вы успешно подписались на категорию "{category.name_category}".')
-        else:
-            messages.info(request, f'Вы уже подписаны на категорию "{category}".')
-
-        return redirect('/news/category')
-
-    # Если метод не POST, перенаправляем или возвращаем ошибку
-    messages.error(request, 'Неправильный метод запроса.')
-    return redirect('/news/category')
+    for subscription in subscribers:
+        send_notification_email(subscription.user, news)

@@ -9,61 +9,28 @@ Categories
 {% endblock title %}
 
 {% block content %}
-   <h1>Список категорий</h1>
-   <h3>{% current_time '%b %d %Y' %}</h3>
-    <form action="" method="get">
-       {{ filterset.form.as_p }}
-       <input type="submit" value="Найти" />
-   </form>
+<h1>Список категорий</h1>
+<hr>
 
-    <style type="text/css">
-  td {
-    padding: 0 15px;
-  }
-    </style>
+{% if categories %}
+    {% for cat in categories %}
+        <h3>{{ cat.name_category }}</h3>
 
-   <hr>
-   {% if categories %}
-       <table>
-           <tr>
-               <td>Название</td>
-               <td>Рейтинг</td>
-               <td>Дата публикации</td>
-           </tr>
-
-           {% for cat in categories %}
-           <tr>
-               <td>{{ cat.name_category }}</td>
-
-               <td>{{ cat.rating }}</td>
-
-               <td>{{ cat.date_in }}</td>
-           </tr>
-
-           {% endfor %}
-
-       </table>
-   {% else %}
-       <h2>Категорий нет!</h2>
-   {% endif %}
-
-    {% if page_obj.has_previous %}
-           {# Для каждой ссылки пагинации указываем обработку через новый тег #}
-           <a href="?{% url_replace page=1 %}">1</a>
-           {% if page_obj.previous_page_number != 1 %}
-               ...
-               <a href="?{% url_replace page=page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a>
-           {% endif %}
-       {% endif %}
-
-       {{ page_obj.number }}
-
-       {% if page_obj.has_next %}
-           <a href="?{% url_replace page=page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a>
-           {% if paginator.num_pages != page_obj.next_page_number %}
-               ...
-               <a href="?{% url_replace page=page_obj.paginator.num_pages %}">{{ page_obj.paginator.num_pages }}</a>
-           {% endif %}
-       {% endif %}
-
-    {% endblock content %}
+        {% if user.is_authenticated %}
+            {% if user in cat.subscribers.all %}
+                <form action="{% url 'unsubscribe' cat.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Отписаться от категории</button>
+                </form>
+            {% else %}
+                <form action="{% url 'subscribe' cat.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Подписаться">
+                </form>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+{% else %}
+    <p>Категории отсутствуют.</p>
+{% endif %}
+{% endblock content %}

@@ -1,9 +1,14 @@
-{% for category in categories %}
-    <div>
-        <h2>{{ category.name_category }}</h2>
-        <form action="{% url 'subscribe' category.id %}" method="post">
-            {% csrf_token %}
-            <button type="submit">Подписаться на эту категорию</button>
-        </form>
-    </div>
-{% endfor %}
+<!--{% for category in categories %}-->
+<!--<div>-->
+<!--    {% if messages %}-->
+<!--    {% for message in messages %}-->
+<!--    <div class="{{ message.tags }}">{{ message }}</div>-->
+<!--    {% endfor %}-->
+<!--    {% endif %}-->
+<!--    <h2>{{ category.name_category }}</h2>-->
+<!--    <form action="{% url 'subscribe' category.id %}" method="post">-->
+<!--        {% csrf_token %}-->
+<!--        <button type="submit">Подписаться на эту категорию</button>-->
+<!--    </form>-->
+<!--</div>-->
+<!--{% endfor %}-->
