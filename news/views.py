@@ -41,7 +41,7 @@ class PostDetail(DetailView):
 
 
 class PostCreate(CreateView, PermissionRequiredMixin, LoginRequiredMixin):
-    permission_required = ('news.add_post')
+    permission_required = ('news.add_post',)
     form_class = PostForm
     model = Post
     template_name = 'new_create.html'
@@ -55,14 +55,14 @@ class PostCreate(CreateView, PermissionRequiredMixin, LoginRequiredMixin):
 
 
 class PostUpdate(UpdateView, PermissionRequiredMixin, LoginRequiredMixin):
-    permission_required = ('news.change_post')
+    permission_required = ('news.change_post',)
     form_class = PostForm
     model = Post
     template_name = 'new_create.html'
 
 
 class PostDelete(DeleteView, PermissionRequiredMixin, LoginRequiredMixin):
-    permission_required = ('news.delete_post')
+    permission_required = ('news.delete_post',)
     model = Post
     template_name = 'new_delete.html'
     success_url = reverse_lazy('new_list')
@@ -152,20 +152,3 @@ def unsubscribe(request, pk):
     messages.success(request, f'Вы успешно отписались от категории: {category.name_category}')
     return redirect(f'/news/category/{category.pk}')
 
-#
-@login_required
-def send_notification_email(user, Post):
-    subject = f'Новая новость в категории {Post.category.name_category}'
-    message = f'В категории "{Post.category.name_category}" добавлена новая новость: {Post.title}\n\n{Post.text}'
-    recipient_list = [user.email]
-
-    send_mail(subject, message,settings.DEFAULT_FROM_EMAIL, recipient_list)
-
-@login_required
-def add_news_to_category(title, text, category):
-    news = Post.objects.create(title=title, text=text, category=category)
-
-    subscribers = Subscription.objects.filter(category=category).select_related('user')
-
-    for subscription in subscribers:
-        send_notification_email(subscription.user, news)
