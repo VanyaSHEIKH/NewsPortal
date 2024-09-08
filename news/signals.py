@@ -1,4 +1,4 @@
-from django.db.models.signals import m2m_changed
+from django.db.models.signals import m2m_changed,pre_save
 from django.dispatch import receiver  # импортируем нужный декоратор
 from django.core.mail import mail_managers
 from .models import *
@@ -31,3 +31,11 @@ def notify_subscribers(sender, instance, action, **kwargs):
                 print(f'Уведомление отправлено {subscriber.email}')
             except Exception as e:
                 print(f'Ошибка при отправке уведомления {subscriber.email}: {e}')
+
+
+# @receiver(pre_save, sender=Post)
+# def limit_news_per_user(sender, instance, **kwargs):
+#     if instance.pk is None:  # Проверяем, что это новая новость
+#         user = instance.author
+#         if Post.objects.filter(author=user).count() >= 3:
+#             raise ValueError("Вы не можете создать больше 3 новостей.")
