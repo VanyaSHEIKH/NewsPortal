@@ -44,8 +44,7 @@ class Command(BaseCommand):
 
         scheduler.add_job(
             my_job,
-            trigger="interval",
-            seconds=5,  # Запускайте каждую минуту
+            trigger=CronTrigger(week="*/1"),
             id="my_job",
             max_instances=1,
             replace_existing=True,
