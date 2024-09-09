@@ -1,8 +1,11 @@
+from datetime import *
+from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect, get_object_or_404
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Subscription
@@ -152,3 +155,37 @@ def unsubscribe(request, pk):
     messages.success(request, f'Вы успешно отписались от категории: {category.name_category}')
     return redirect(f'/news/category/{category.pk}')
 
+
+
+
+
+
+
+
+
+def send_weekly_post_notifications():
+    # Вычисляем дату, которая была неделю назад
+    today = timezone.now()
+    last_week = today - timezone.timedelta(days=7)
+
+    # Получаем все статьи, созданные за последнюю неделю
+    recent_posts = Post.objects.filter(date_in__gte=last_week)
+
+    # Собираем всех подписчиков
+    subscribers = set()
+    for post in recent_posts:
+        categories = post.category.all()
+        for category in categories:
+            subscribers.update(category.subscribers.all())
+
+    subject = 'Новые статьи за последнюю неделю'
+    from_email = settings.DEFAULT_FROM_EMAIL
+
+    for subscriber in subscribers:
+        message = render_to_string('weekly_post_notification.html', {
+            'posts': recent_posts,
+            'base_url': settings.SITE_URL,
+            'user': subscriber
+        })
+        send_mail(subject=subject, message='', from_email=from_email, recipient_list=[subscriber.email],
+                  html_message=message)
