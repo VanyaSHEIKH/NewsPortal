@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'appointment',
 
     'django_apscheduler',
+
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -127,7 +128,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
@@ -162,19 +163,28 @@ ACCOUNT_FORMS = {'signup': 'sign.models.BasicSignupForm'}
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.yandex.ru'  # адрес сервера Яндекс-почты для всех один и тот же
 EMAIL_PORT = 465  # порт smtp сервера тоже одинаковый
-EMAIL_HOST_USER = ''  # ваше имя пользователя, например, если ваша почта user@yandex.ru, то сюда надо писать user, иными словами, это всё то что идёт до собаки
-EMAIL_HOST_PASSWORD = ''  # пароль от почты
+EMAIL_HOST_USER = 'Ivan.Mikhov2004'  # ваше имя пользователя, например, если ваша почта user@yandex.ru, то сюда надо писать user, иными словами, это всё то что идёт до собаки
+EMAIL_HOST_PASSWORD = 'ijlkajwqjrclaipw'  # пароль от почты
 EMAIL_USE_SSL = True  # Яндекс использует ssl, подробнее о том, что это, почитайте в дополнительных источниках, но включать его здесь обязательно
 
-DEFAULT_FROM_EMAIL = ''
+DEFAULT_FROM_EMAIL = 'Ivan.Mikhov2004@yandex.ru'
 
 MANAGERS = [
-    ('Skavik', ''),
+    ('Skavik', 'itsvanyka@mail.ru'),
     # список всех админов в формате ('имя', 'их почта')
 ]
-SERVER_EMAIL = ''  # это будет у нас вместо аргумента FROM в массовой рассылке
+SERVER_EMAIL = 'Ivan.Mikhov2004@yandex.ru'  # это будет у нас вместо аргумента FROM в массовой рассылке
 
 APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
 APSCHEDULER_RUN_NOW_TIMEOUT = 25
 
 SITE_URL='http://127.0.0.1:8000/'
+
+
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+CELERY_TIMEZONE = 'Europe/Moscow'

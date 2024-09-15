@@ -1,18 +1,17 @@
-from datetime import *
-from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
-from django.core.exceptions import PermissionDenied
 from django.core.mail import send_mail
-from django.shortcuts import render, redirect, get_object_or_404
-from django.template.loader import render_to_string
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Subscription
-from .filters import PostFilter, CategoryFilter
+from .filters import *
 from .forms import *
 from django.contrib import messages
 from django.conf import settings
+
+
+
+
 class PostList(ListView):
     model = Post
     ordering = 'date_in'
@@ -98,7 +97,8 @@ class CategoryDetail(DetailView):
     template_name = 'category.html'
     context_object_name = 'category'
 
-#Рассылка уведомления на почту от подписке на категорию!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+# Рассылка уведомления на почту от подписке на категорию!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 def subscribe(request, pk):
     user = request.user
@@ -119,6 +119,8 @@ def subscribe(request, pk):
         messages.warning(request, 'Вы уже подписаны на эту категорию.')
 
     return redirect('category_detail', pk=pk)
+
+
 @login_required
 def subscribe(request, pk):
     user = request.user
@@ -156,36 +158,33 @@ def unsubscribe(request, pk):
     return redirect(f'/news/category/{category.pk}')
 
 
+# def send_weekly_post_notifications():
+#     # Вычисляем дату, которая была неделю назад
+#     today = timezone.now()
+#     last_week = today - timezone.timedelta(days=7)
+#
+#     # Получаем все статьи, созданные за последнюю неделю
+#     recent_posts = Post.objects.filter(date_in__gte=last_week)
+#
+#     # Собираем всех подписчиков
+#     subscribers = set()
+#     for post in recent_posts:
+#         categories = post.category.all()
+#         for category in categories:
+#             subscribers.update(category.subscribers.all())
+#
+#     subject = 'Новые статьи за последнюю неделю'
+#     from_email = settings.DEFAULT_FROM_EMAIL
+#
+#     for subscriber in subscribers:
+#         message = render_to_string('account/email/week_post.html', {
+#             'posts': recent_posts,
+#             'base_url': settings.SITE_URL,
+#             'user': subscriber
+#         })
+#         send_mail(subject=subject, message='', from_email=from_email, recipient_list=[subscriber.email],
+#                   html_message=message)
+
+#КОНЕЦ РАССЫЛКИ СООБЩЕНИЙ !!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
-
-
-
-
-
-def send_weekly_post_notifications():
-    # Вычисляем дату, которая была неделю назад
-    today = timezone.now()
-    last_week = today - timezone.timedelta(days=7)
-
-    # Получаем все статьи, созданные за последнюю неделю
-    recent_posts = Post.objects.filter(date_in__gte=last_week)
-
-    # Собираем всех подписчиков
-    subscribers = set()
-    for post in recent_posts:
-        categories = post.category.all()
-        for category in categories:
-            subscribers.update(category.subscribers.all())
-
-    subject = 'Новые статьи за последнюю неделю'
-    from_email = settings.DEFAULT_FROM_EMAIL
-
-    for subscriber in subscribers:
-        message = render_to_string('weekly_post_notification.html', {
-            'posts': recent_posts,
-            'base_url': settings.SITE_URL,
-            'user': subscriber
-        })
-        send_mail(subject=subject, message='', from_email=from_email, recipient_list=[subscriber.email],
-                  html_message=message)

@@ -1,10 +1,10 @@
 from django.shortcuts import render, reverse, redirect
 from django.views import View
-from django.core.mail import mail_admins, mail_managers  # импортируем класс для создание объекта письма с html
+from django.core.mail import  mail_managers
 from datetime import datetime
 
 
-from django.template.loader import render_to_string  # импортируем функцию, которая срендерит наш html в текст
+from django.template.loader import render_to_string
 from .models import Appointment
 
 from django.db.models.signals import post_save
