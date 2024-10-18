@@ -12,6 +12,6 @@ def censor(value):
         check = (value.lower()).find(word)
         while check != -1:
             len_ = len(word)
-            value = value[:check]+word[0]+'*'*len_ + value[check+len_:]
+            value = value[:check]+word[0]+'*'*len_ + value[check+len_:]+word[-1]
             check = (value.lower()).find(word)
     return value

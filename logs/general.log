@@ -1,0 +1,87 @@
+19.10/2024 00-52-04 INFO autoreload Watching for file changes with StatReloader
+19.10/2024 00-52-07 WARNING log Not Found: /accounts/login/newsc
+19.10/2024 00-52-07 WARNING basehttp "GET /accounts/login/newsc HTTP/1.1" 404 179
+19.10/2024 00-52-11 INFO basehttp "GET /news/ HTTP/1.1" 200 3268
+19.10/2024 00-52-11 INFO basehttp "GET /news/ HTTP/1.1" 200 3268
+19.10/2024 00-52-15 INFO basehttp "GET /news/create/ HTTP/1.1" 200 3498
+19.10/2024 00-52-15 WARNING log Not Found: /news/crat
+19.10/2024 00-52-15 WARNING basehttp "GET /news/crat HTTP/1.1" 404 179
+19.10/2024 00-52-57 INFO autoreload C:\Users\itsva\PycharmProjects\NewsPortal\NewsPaper\NewsPaper\settings.py changed, reloading.
+19.10/2024 01-03-52 INFO autoreload Watching for file changes with StatReloader
+19.10/2024 01-04-10 WARNING log Not Found: /Ù‚Ù‚˚Ù˚‚Ù‚asdads
+19.10/2024 01-04-10 WARNING basehttp "GET /%D1%84%D0%B2%D1%84%D0%B2%D1%8B%D1%84%D1%8B%D0%B2%D1%84%D0%B2asdads HTTP/1.1" 404 179
+19.10/2024 01-04-30 INFO autoreload C:\Users\itsva\PycharmProjects\NewsPortal\NewsPaper\NewsPaper\settings.py changed, reloading.
+19.10/2024 01-04-32 INFO autoreload Watching for file changes with StatReloader
+19.10/2024 01-04-37 INFO basehttp "GET / HTTP/1.1" 302 0
+19.10/2024 01-04-37 INFO basehttp "GET /accounts/login/?next=/ HTTP/1.1" 200 2602
+19.10/2024 01-04-39 INFO basehttp "GET /accounts/login/?next=/asdasd HTTP/1.1" 200 2614
+19.10/2024 01-05-17 INFO autoreload C:\Users\itsva\PycharmProjects\NewsPortal\NewsPaper\news\views.py changed, reloading.
+19.10/2024 01-05-18 INFO autoreload Watching for file changes with StatReloader
+19.10/2024 01-05-29 INFO autoreload C:\Users\itsva\PycharmProjects\NewsPortal\NewsPaper\news\views.py changed, reloading.
+19.10/2024 01-05-31 INFO autoreload Watching for file changes with StatReloader
+19.10/2024 01-05-43 INFO autoreload C:\Users\itsva\PycharmProjects\NewsPortal\NewsPaper\news\views.py changed, reloading.
+19.10/2024 01-05-44 INFO autoreload Watching for file changes with StatReloader
+19.10/2024 01-05-55 INFO autoreload C:\Users\itsva\PycharmProjects\NewsPortal\NewsPaper\news\urls.py changed, reloading.
+19.10/2024 01-05-56 INFO autoreload Watching for file changes with StatReloader
+19.10/2024 01-06-24 WARNING log Not Found: /test-error/
+19.10/2024 01-06-24 WARNING basehttp "GET //test-error/ HTTP/1.1" 404 179
+19.10/2024 01-07-26 INFO autoreload C:\Users\itsva\PycharmProjects\NewsPortal\NewsPaper\news\urls.py changed, reloading.
+19.10/2024 01-07-27 INFO autoreload Watching for file changes with StatReloader
+19.10/2024 01-07-31 INFO autoreload C:\Users\itsva\PycharmProjects\NewsPortal\NewsPaper\news\views.py changed, reloading.
+19.10/2024 01-07-32 INFO autoreload Watching for file changes with StatReloader
+19.10/2024 01-09-39 INFO autoreload Watching for file changes with StatReloader
+19.10/2024 01-09-49 INFO basehttp "GET / HTTP/1.1" 302 0
+19.10/2024 01-09-50 INFO basehttp "GET /accounts/login/?next=/ HTTP/1.1" 200 2602
+19.10/2024 01-09-58 INFO basehttp "GET /accounts/login/?next=/asdasd HTTP/1.1" 200 2614
+19.10/2024 01-10-06 INFO basehttp "GET /news/ HTTP/1.1" 200 3268
+19.10/2024 01-10-07 INFO basehttp "GET /news/create/ HTTP/1.1" 200 3498
+19.10/2024 01-10-07 INFO basehttp "GET /news/create/ HTTP/1.1" 200 3498
+19.10/2024 01-10-33 INFO basehttp "GET /news/create/ HTTP/1.1" 200 3498
+19.10/2024 01-10-35 INFO basehttp "GET /news/category/ HTTP/1.1" 200 2255
+19.10/2024 01-10-42 INFO basehttp "GET / HTTP/1.1" 302 0
+19.10/2024 01-10-42 INFO basehttp "GET /accounts/login/?next=/ HTTP/1.1" 200 2602
+19.10/2024 01-10-48 INFO basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+19.10/2024 01-10-48 INFO basehttp "GET / HTTP/1.1" 200 750
+19.10/2024 01-10-50 INFO basehttp "GET /news/create/ HTTP/1.1" 200 3498
+19.10/2024 01-10-52 INFO basehttp "GET /news/category/ HTTP/1.1" 200 3990
+19.10/2024 01-10-52 INFO basehttp - Broken pipe from ('127.0.0.1', 60811)
+19.10/2024 01-10-57 INFO basehttp "POST /news/category/1/subscribe HTTP/1.1" 302 0
+19.10/2024 01-10-57 INFO basehttp "GET /news/category/1 HTTP/1.1" 301 0
+19.10/2024 01-10-57 INFO basehttp "GET /news/category/1/ HTTP/1.1" 200 2569
+19.10/2024 01-11-09 INFO basehttp "GET / HTTP/1.1" 200 750
+19.10/2024 01-11-10 INFO basehttp "POST /sign/logout/ HTTP/1.1" 302 0
+19.10/2024 01-11-10 INFO basehttp "GET / HTTP/1.1" 302 0
+19.10/2024 01-11-10 INFO basehttp "GET /accounts/login/?next=/ HTTP/1.1" 200 2602
+19.10/2024 01-11-16 INFO basehttp "GET /news/create/ HTTP/1.1" 200 3498
+19.10/2024 01-11-17 INFO basehttp "GET /news/create/ HTTP/1.1" 200 3498
+19.10/2024 01-11-17 INFO basehttp - Broken pipe from ('127.0.0.1', 60840)
+19.10/2024 01-11-22 INFO basehttp "POST /news/create/ HTTP/1.1" 302 0
+19.10/2024 01-11-22 INFO basehttp "GET /news/80 HTTP/1.1" 200 2437
+19.10/2024 01-13-01 INFO autoreload C:\Users\itsva\PycharmProjects\NewsPortal\NewsPaper\news\views.py changed, reloading.
+19.10/2024 01-13-02 INFO autoreload Watching for file changes with StatReloader
+19.10/2024 01-13-39 INFO autoreload C:\Users\itsva\PycharmProjects\NewsPortal\NewsPaper\news\views.py changed, reloading.
+19.10/2024 01-13-41 INFO autoreload Watching for file changes with StatReloader
+19.10/2024 01-14-16 INFO autoreload C:\Users\itsva\PycharmProjects\NewsPortal\NewsPaper\news\views.py changed, reloading.
+19.10/2024 01-14-17 INFO autoreload Watching for file changes with StatReloader
+19.10/2024 01-14-24 INFO autoreload C:\Users\itsva\PycharmProjects\NewsPortal\NewsPaper\news\views.py changed, reloading.
+19.10/2024 01-14-26 INFO autoreload Watching for file changes with StatReloader
+19.10/2024 01-16-22 INFO autoreload C:\Users\itsva\PycharmProjects\NewsPortal\NewsPaper\news\views.py changed, reloading.
+19.10/2024 01-16-24 INFO autoreload Watching for file changes with StatReloader
+19.10/2024 01-16-38 INFO basehttp "GET / HTTP/1.1" 302 0
+19.10/2024 01-16-38 INFO basehttp "GET /accounts/login/?next=/ HTTP/1.1" 200 2602
+19.10/2024 01-16-44 INFO basehttp "GET /news/create/ HTTP/1.1" 200 3498
+19.10/2024 01-16-46 INFO basehttp "GET /news/create/ HTTP/1.1" 200 3498
+19.10/2024 01-16-52 INFO basehttp "POST /news/create/ HTTP/1.1" 302 0
+19.10/2024 01-16-52 INFO basehttp "GET /news/81 HTTP/1.1" 200 2442
+19.10/2024 01-17-11 INFO autoreload C:\Users\itsva\PycharmProjects\NewsPortal\NewsPaper\news\views.py changed, reloading.
+19.10/2024 01-17-12 INFO autoreload Watching for file changes with StatReloader
+19.10/2024 01-20-00 INFO autoreload C:\Users\itsva\PycharmProjects\NewsPortal\NewsPaper\NewsPaper\settings.py changed, reloading.
+19.10/2024 01-30-53 INFO autoreload Watching for file changes with StatReloader
+19.10/2024 01-35-16 INFO autoreload C:\Users\itsva\PycharmProjects\NewsPortal\NewsPaper\NewsPaper\settings.py changed, reloading.
+19.10/2024 01-35-18 INFO autoreload Watching for file changes with StatReloader
+19.10/2024 01-35-29 WARNING log Not Found: /news/asdad
+19.10/2024 01-35-29 WARNING basehttp "GET /news/asdad HTTP/1.1" 404 179
+19.10/2024 01-35-32 WARNING log Not Found: /news/asdad
+19.10/2024 01-35-32 WARNING basehttp "GET /news/asdad HTTP/1.1" 404 179
+19.10/2024 01-39-46 INFO autoreload C:\Users\itsva\PycharmProjects\NewsPortal\NewsPaper\NewsPaper\settings.py changed, reloading.
+19.10/2024 01-39-47 INFO autoreload Watching for file changes with StatReloader

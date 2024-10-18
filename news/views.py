@@ -11,7 +11,6 @@ from django.conf import settings
 
 
 
-
 class PostList(ListView):
     model = Post
     ordering = 'date_in'
@@ -100,25 +99,25 @@ class CategoryDetail(DetailView):
 
 # Рассылка уведомления на почту от подписке на категорию!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-def subscribe(request, pk):
-    user = request.user
-    category = Category.objects.get(id=pk)
-
-    subscription, created = Subscription.objects.get_or_create(user=user, category=category)
-
-    if created:
-        send_mail(
-            'Подписка на категорию',
-            f'Вы успешно подписались на категорию {category.name_category}.',
-            settings.DEFAULT_FROM_EMAIL,
-            [user.email],
-            fail_silently=False,
-        )
-        messages.success(request, f'Вы успешно подписались на категорию {category.name_category}.')
-    else:
-        messages.warning(request, 'Вы уже подписаны на эту категорию.')
-
-    return redirect('category_detail', pk=pk)
+# def subscribe(request, pk):
+#     user = request.user
+#     category = Category.objects.get(id=pk)
+#
+#     subscription, created = Subscription.objects.get_or_create(user=user, category=category)
+#
+#     if created:
+#         send_mail(
+#             'Подписка на категорию',
+#             f'Вы успешно подписались на категорию {category.name_category}.',
+#             settings.DEFAULT_FROM_EMAIL,
+#             [user.email],
+#             fail_silently=False,
+#         )
+#         messages.success(request, f'Вы успешно подписались на категорию {category.name_category}.')
+#     else:
+#         messages.warning(request, 'Вы уже подписаны на эту категорию.')
+#
+#     return redirect('category_detail', pk=pk)
 
 
 @login_required
@@ -157,7 +156,6 @@ def unsubscribe(request, pk):
     messages.success(request, f'Вы успешно отписались от категории: {category.name_category}')
     return redirect(f'/news/category/{category.pk}')
 
-
 # def send_weekly_post_notifications():
 #     # Вычисляем дату, которая была неделю назад
 #     today = timezone.now()
@@ -185,6 +183,5 @@ def unsubscribe(request, pk):
 #         send_mail(subject=subject, message='', from_email=from_email, recipient_list=[subscriber.email],
 #                   html_message=message)
 
-#КОНЕЦ РАССЫЛКИ СООБЩЕНИЙ !!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
+# КОНЕЦ РАССЫЛКИ СООБЩЕНИЙ !!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
