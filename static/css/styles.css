@@ -491,6 +491,14 @@ progress {
   font-weight: 300;
 }
 
+.row1 {
+    background-color: #f5fcfc
+}
+
+.row2 {
+    background-color: #e0ffff
+}
+
 .display-1 {
   font-size: calc(1.625rem + 4.5vw);
   font-weight: 300;

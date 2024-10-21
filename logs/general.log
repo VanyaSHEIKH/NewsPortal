@@ -85,3 +85,69 @@
 19.10/2024 01-35-32 WARNING basehttp "GET /news/asdad HTTP/1.1" 404 179
 19.10/2024 01-39-46 INFO autoreload C:\Users\itsva\PycharmProjects\NewsPortal\NewsPaper\NewsPaper\settings.py changed, reloading.
 19.10/2024 01-39-47 INFO autoreload Watching for file changes with StatReloader
+2024-10-21 01:21:25,073 INFO autoreload Watching for file changes with StatReloader
+2024-10-21 01:24:16,273 INFO autoreload C:\Users\itsva\PycharmProjects\NewsPortal\NewsPaper\NewsPaper\settings.py changed, reloading.
+21.10/2024 01-24-17 INFO autoreload Watching for file changes with StatReloader
+21.10/2024 01-27-01 INFO autoreload Watching for file changes with StatReloader
+21.10/2024 01-27-02 INFO basehttp "GET / HTTP/1.1" 302 0
+21.10/2024 01-27-02 INFO basehttp "GET /accounts/login/?next=/ HTTP/1.1" 200 2827
+21.10/2024 01-27-06 INFO basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+21.10/2024 01-27-06 INFO basehttp "GET / HTTP/1.1" 200 750
+21.10/2024 01-27-09 INFO basehttp "GET /news/ HTTP/1.1" 200 3268
+21.10/2024 01-27-09 WARNING log Not Found: /static/css/styles.css
+21.10/2024 01-27-09 WARNING basehttp "GET /static/css/styles.css HTTP/1.1" 404 179
+21.10/2024 01-27-12 WARNING log Not Found: /about/
+21.10/2024 01-27-12 WARNING basehttp "GET /about/ HTTP/1.1" 404 179
+21.10/2024 01-27-14 INFO basehttp - Broken pipe from ('127.0.0.1', 55155)
+21.10/2024 01-28-15 INFO basehttp "GET /news/create/ HTTP/1.1" 200 3498
+21.10/2024 01-28-16 WARNING log Not Found: /static/css/styles.css
+21.10/2024 01-28-16 WARNING basehttp "GET /static/css/styles.css HTTP/1.1" 404 179
+21.10/2024 01-28-22 INFO basehttp "GET /news/category/ HTTP/1.1" 200 4015
+21.10/2024 01-28-22 WARNING log Not Found: /static/css/styles.css
+21.10/2024 01-28-22 WARNING basehttp "GET /static/css/styles.css HTTP/1.1" 404 179
+21.10/2024 01-41-35 INFO autoreload Watching for file changes with StatReloader
+21.10/2024 01-41-36 INFO basehttp "GET / HTTP/1.1" 302 0
+21.10/2024 01-41-36 INFO basehttp "GET /accounts/login/?next=/ HTTP/1.1" 200 2827
+21.10/2024 01-41-41 INFO basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+21.10/2024 01-41-41 INFO basehttp "GET / HTTP/1.1" 200 750
+21.10/2024 01-41-43 INFO basehttp "GET /news/ HTTP/1.1" 200 3268
+21.10/2024 01-41-43 WARNING log Not Found: /static/css/styles.css
+21.10/2024 01-41-43 WARNING basehttp "GET /static/css/styles.css HTTP/1.1" 404 179
+21.10/2024 01-45-20 INFO basehttp "GET / HTTP/1.1" 200 750
+21.10/2024 01-45-23 INFO basehttp "GET /news/ HTTP/1.1" 200 3268
+21.10/2024 01-45-23 WARNING log Not Found: /static/css/styles.css
+21.10/2024 01-45-23 WARNING basehttp "GET /static/css/styles.css HTTP/1.1" 404 179
+21.10/2024 15-07-17 INFO autoreload Watching for file changes with StatReloader
+21.10/2024 15-07-22 INFO basehttp "GET / HTTP/1.1" 302 0
+21.10/2024 15-07-22 INFO basehttp "GET /accounts/login/?next=/ HTTP/1.1" 200 2602
+21.10/2024 15-07-22 WARNING log Not Found: /favicon.ico
+21.10/2024 15-07-22 WARNING basehttp "GET /favicon.ico HTTP/1.1" 404 179
+21.10/2024 15-07-25 INFO basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+21.10/2024 15-07-25 INFO basehttp "GET / HTTP/1.1" 200 750
+21.10/2024 15-07-28 INFO basehttp "GET /news HTTP/1.1" 301 0
+21.10/2024 15-07-28 INFO basehttp "GET /news/ HTTP/1.1" 200 3268
+21.10/2024 15-07-28 WARNING log Not Found: /static/css/styles.css
+21.10/2024 15-07-28 WARNING basehttp "GET /static/css/styles.css HTTP/1.1" 404 179
+21.10/2024 15-07-28 INFO basehttp "GET /news/ HTTP/1.1" 200 3268
+21.10/2024 15-07-28 WARNING log Not Found: /static/css/styles.css
+21.10/2024 15-07-28 WARNING basehttp "GET /static/css/styles.css HTTP/1.1" 404 179
+21.10/2024 15-33-06 INFO autoreload C:\Users\itsva\PycharmProjects\NewsPortal\NewsPaper\NewsPaper\settings.py changed, reloading.
+21.10/2024 15-33-07 INFO autoreload Watching for file changes with StatReloader
+21.10/2024 15-33-13 INFO basehttp "GET / HTTP/1.1" 302 0
+21.10/2024 15-33-14 INFO basehttp "GET /accounts/login/?next=/ HTTP/1.1" 200 2602
+21.10/2024 15-33-17 INFO basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+21.10/2024 15-33-17 INFO basehttp "GET / HTTP/1.1" 200 750
+21.10/2024 15-33-20 INFO basehttp "GET /news HTTP/1.1" 301 0
+21.10/2024 15-33-20 INFO basehttp "GET /news/ HTTP/1.1" 200 3268
+21.10/2024 15-33-20 WARNING log Not Found: /static/css/styles.css
+21.10/2024 15-33-20 WARNING basehttp "GET /static/css/styles.css HTTP/1.1" 404 179
+21.10/2024 15-35-47 INFO autoreload C:\Users\itsva\PycharmProjects\NewsPortal\NewsPaper\NewsPaper\settings.py changed, reloading.
+21.10/2024 16-15-10 INFO autoreload Watching for file changes with StatReloader
+21.10/2024 16-15-16 INFO basehttp "GET / HTTP/1.1" 302 0
+21.10/2024 16-15-16 INFO basehttp "GET /accounts/login/?next=/ HTTP/1.1" 200 2602
+21.10/2024 16-15-16 WARNING log Not Found: /favicon.ico
+21.10/2024 16-15-16 WARNING basehttp "GET /favicon.ico HTTP/1.1" 404 179
+21.10/2024 16-15-20 INFO basehttp "POST /accounts/login/ HTTP/1.1" 302 0
+21.10/2024 16-15-20 INFO basehttp "GET / HTTP/1.1" 200 750
+21.10/2024 16-15-20 INFO basehttp - Broken pipe from ('127.0.0.1', 50200)
+21.10/2024 16-15-22 INFO basehttp "GET /news/ HTTP/1.1" 200 3268
